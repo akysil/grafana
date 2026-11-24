@@ -13,7 +13,7 @@ import { selectors } from '@grafana/e2e-selectors';
 import { Trans, t } from '@grafana/i18n';
 import { type FavoriteDatasources, getTemplateSrv } from '@grafana/runtime';
 import { useStyles2 } from '@grafana/ui';
-import { SearchStatus } from '@grafana/ui/internal';
+import { SearchStatus, getFocusStyles } from '@grafana/ui/internal';
 
 import { useDatasources, useRecentlyUsedDataSources } from '../../hooks';
 
@@ -222,6 +222,7 @@ function getStyles(theme: GrafanaTheme2) {
       padding: theme.spacing(0.5),
       '[data-selecteditem="true"]': {
         backgroundColor: theme.colors.action.focus,
+        ...getFocusStyles(theme, true),
       },
     }),
     emptyState: css({

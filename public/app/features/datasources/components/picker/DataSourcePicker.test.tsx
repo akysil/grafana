@@ -317,6 +317,17 @@ describe('DataSourcePicker', () => {
       expect(screen.queryByText(mockDS1.name, { selector: 'span' })).toBeNull();
     });
 
+    it('should show a focus ring, not only a background color, on the keyboard-highlighted item', async () => {
+      await setupOpenDropdown(user, { onChange: jest.fn() });
+
+      await user.keyboard('[ArrowDown]');
+      const highlighted = getCard(await screen.findByText(mockDS2.name, { selector: 'span' }));
+      const notHighlighted = getCard(await screen.findByText(mockDS1.name, { selector: 'span' }));
+
+      expect(getComputedStyle(highlighted!).boxShadow).toContain('inset');
+      expect(getComputedStyle(notHighlighted!).boxShadow).not.toContain('inset');
+    });
+
     it('should announce the keyboard-highlighted item via aria-activedescendant', async () => {
       await setupOpenDropdown(user, { onChange: jest.fn(), current: mockDS1.name });
 
